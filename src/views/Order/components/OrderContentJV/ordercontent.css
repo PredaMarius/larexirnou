@@ -1,0 +1,31 @@
+.error{
+    background-color: rgb(255, 45, 45) !important;
+    color:white!important;
+}
+.atention{
+    background-color: rgb(255, 187, 187);
+}
+.e-checkbox-wrapper{
+    pointer-events: none;
+}
+.e-grid .e-headercell{
+    background-color: #696969;
+    color: rgba(224, 224, 224, 0.76);
+}
+.e-grid.e-bothlines .e-rowcell{
+    border-color:rgb(128, 127, 127);
+}
+.e-rowcell{
+    padding:2px 1px !important;
+  
+}
+.e-summarycell{
+    padding:2px 1px !important; 
+}
+
+.e-headercell{
+    padding: 0 10px 0 !important;
+}
+.e-headercelldiv{
+    text-align: center !important;
+}

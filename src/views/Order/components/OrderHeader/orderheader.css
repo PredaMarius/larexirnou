@@ -1,0 +1,23 @@
+.MuiTypography-h5,  .MuiTypography-h6{
+    color:rgb(252, 250, 250) !important;
+}
+.MuiTypography-root.MuiCardHeader-subheader.MuiTypography-body1.MuiTypography-colorTextSecondary.MuiTypography-displayBlock{
+    color:rgb(199, 199, 199) !important;
+}
+
+.MuiTypography-root .MuiTypography-body1 .MuiTypography-colorTextSecondary{
+    color:rgb(27, 27, 27) !important;
+}
+
+.MuiOutlinedInput-input {
+    padding: 6px 5px !important;
+}
+
+.MuiCardContent-root:last-child {
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+}
+
+.MuiCardHeader-root {
+    padding: 8px!important;;
+}

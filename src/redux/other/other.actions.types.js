@@ -1,0 +1,12 @@
+/* eslint-disable linebreak-style */
+export const  SET_LOADING='SET_LOADING';
+export const SET_ERRORS='SET_ERRORS';
+export const SET_VARIANT='SET_VARIANT';
+export const SET_OPEN_EDIT_ITEM='SET_OPEN_EDIT_ITEM';
+export const RESET_ERRORS=' RESET_ERRORS';
+export const  SET_CONFIRMATION=' SET_CONFIRMATION';
+export const ENQUEUE_SNACKBAR='ENQUEUE_SNACKBAR';
+export const CLOSE_SNACKBAR='CLOSE_SNACKBAR';
+export const REMOVE_SNACKBAR='REMOVE_SNACKBAR';
+export const SET_OVERLAY_SPINNER='SET_OVERLAY_SPINNER';
+export const SET_DONE='SET_DONE';

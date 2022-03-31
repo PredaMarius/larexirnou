@@ -1,0 +1,8 @@
+/* eslint-disable linebreak-style */
+export const SET_CURRENT_PRODUCT = 'SET_CURRENT_PRODUCT'; 
+export const SET_ORDERS_START = 'SET_ORDERS_START';
+export const SET_ORDERS_SUCCESS = 'SET_ORDERS_SUCCESS';
+export const SET_CURRENT_ORDER = 'SET_CURRENT_ORDER';
+export const SET_CURRENT_ITEM = 'SET_CURRENT_ITEM';
+export const SET_UPDATED_ORDER='SET_UPDATED_ORDER';
+export const SET_DELETED_ITEMS='SET_DELETED_ITEMS';

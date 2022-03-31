@@ -1,0 +1,11 @@
+@media (min-width: 320px) and (max-width: 480px) {
+    .MuiOutlinedInput-input {
+        padding: 9px 7px !important;
+    }
+}
+
+@media (min-width: 800px)  {
+    .MuiOutlinedInput-input {
+        padding: 18.5px 14px !important;
+    }
+}

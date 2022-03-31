@@ -1,0 +1,12 @@
+@media (min-width: 320px) and (max-width: 480px) {
+    .button{
+        font-size: 8px ;
+        margin: 2px ; 
+    }
+   
+
+    .MuiSvgIcon-root {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}

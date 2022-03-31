@@ -1,0 +1,42 @@
+.e-checkbox-wrapper{
+    pointer-events: none;
+}
+.netransmisa{
+    color:red!important;
+    
+}
+.e-grid .e-headercell{
+    background-color:  #696969;
+    color: rgba(224, 224, 224, 0.76);
+   
+}
+.e-grid.e-bothlines .e-rowcell{
+    border-color:rgb(128, 127, 127);
+}
+.e-rowcell{
+    padding:5px 5px !important;
+  
+}
+.e-summarycell{
+    padding:5px 5px !important;
+  
+}
+.e-gridpopup{
+    visibility: hidden !important;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .MuiFab-root {
+        font-size: 8px !important;
+        margin: 2px !important;
+    }
+
+    .MuiSvgIcon-root {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
+
+.control-section{
+    padding:5px;
+}

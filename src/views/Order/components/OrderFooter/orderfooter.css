@@ -1,0 +1,11 @@
+@media (min-width: 320px) and (max-width: 480px) {
+    .MuiFab-root {
+        font-size: 8px !important;
+        margin: 2px !important;
+    }
+
+    .MuiSvgIcon-root {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
