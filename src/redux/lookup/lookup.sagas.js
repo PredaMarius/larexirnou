@@ -4,6 +4,7 @@ import {takeLatest, put, all, call} from 'redux-saga/effects';
 import {
   LOAD_PRODUSE_START,
   LOAD_MATERIALE_START,
+  LOAD_CODURI_START,
   LOAD_PRETURITABELARE_START,
   LOAD_OPTIONALE_START,
   LOAD_CULORI_START,
@@ -12,11 +13,11 @@ import {
   LOAD_FIRMA_START,
   LOAD_CURS_START,
 } from './lookup.actions.types'
-import {loadProduseSuccess,loadMaterialeSuccess,loadOptionaleSuccess, loadCuloriSuccess,loadPreturiTabelareSuccess, loadInformariSuccess, loadIndicatoriSuccess, loadFirmaSuccess, loadCursSuccess } from './lookup.actions';
+import {loadProduseSuccess,loadMaterialeSuccess,loadCoduriSuccess,loadOptionaleSuccess, loadCuloriSuccess,loadPreturiTabelareSuccess, loadInformariSuccess, loadIndicatoriSuccess, loadFirmaSuccess, loadCursSuccess } from './lookup.actions';
 import {enqueueSnackbar, setLoading, setDone} from '../other/other.actions';
 import {strapi} from '../../strapi/strapi.config';
-import {setProduse, setMateriale, setPreturiTabelare,setOptionale, setCulori, setIndicatori, setInformari, setFirma} from '../../strapi/strapi.utils';
-import {getProduseX, getMaterialeX, getPreturiTabelareX,getOptionaleX, getCuloriX, getInformariX, comparaIndicatori} from '../../strapi/strapi.utils';
+import {setProduse, setMateriale, setCoduri, setPreturiTabelare,setOptionale, setCulori, setIndicatori, setInformari, setFirma} from '../../strapi/strapi.utils';
+import {getProduseX, getMaterialeX, getCoduriX, getPreturiTabelareX,getOptionaleX, getCuloriX, getInformariX, comparaIndicatori} from '../../strapi/strapi.utils';
 
 
 export function* getProduse(){
@@ -58,6 +59,32 @@ export function* getMateriale(){
       const materiale= yield strapi.getEntries('materials',{tipProdus:'JV',_limit:10000, _sort:'denumire:ASC'})
       yield put(loadMaterialeSuccess(materiale))
       yield setMateriale(materiale)
+    }
+    // yield put(setLoading(false))
+  }catch(error){ 
+    yield put(setLoading(false))
+    // yield put(enqueueSnackbar({
+    //   message: `Verificati conexiunea la internet. Eroare : nu am putut prelua nomenclatorul de materiale.(${error})`,
+    //   options: {
+    //     key: null,
+    //     variant: 'error',
+    //   },
+    // },5000))
+  }
+}
+
+export function* getCoduri(){
+  
+  try{
+    yield put(setLoading(true))
+    const egalitateIndicator = yield comparaIndicatori('coduri')
+     
+    if(egalitateIndicator){
+      yield put(loadCoduriSuccess(getCoduriX()))
+    }else{
+      const coduri= yield strapi.getEntries('coduris',{_limit:10000, _sort:'denumire:ASC'})
+      yield put(loadCoduriSuccess(coduri))
+      yield setCoduri(coduri)
     }
     // yield put(setLoading(false))
   }catch(error){ 
@@ -249,6 +276,9 @@ export function* onLoadMaterialeStart(){
   yield takeLatest (LOAD_MATERIALE_START,getMateriale)
 }
 
+export function* onLoadCoduriStart(){
+  yield takeLatest (LOAD_CODURI_START,getCoduri)
+}
 export function* onLoadOptionaleStart(){
   yield takeLatest (LOAD_OPTIONALE_START,getOptionale)
 }
@@ -281,6 +311,7 @@ export function* lookupSagas(){
   yield all([
     call(onLoadProduseStart),
     call(onLoadMaterialeStart),
+    call(onLoadCoduriStart),
     call(onLoadOptionaleStart),
     call(onLoadCuloriStart),
     call(onLoadPreturiTabelareStart),

@@ -136,6 +136,18 @@ class OrderContentJV extends React.Component{
     }
   }
   //----------------------------------------------------------------------------------------------------
+  materialFormater=(field, data)=>{
+    var mat1= getValue('denumireMaterial', data) + '(' + (getValue('denumireCod', data)?getValue('denumireCod', data) + '/'+ getValue('NrLam', data) + ' lam.' : getValue('codMaterial', data)) +')' 
+    var mat2= getValue('denumireMaterial2', data) ? ' + '  + getValue('denumireMaterial2', data) + '('+ getValue('denumireCod2', data) + '/'+ getValue('NrLam2', data) + ' lam.)':'';
+    var mat3= getValue('denumireMaterial3', data) ? ' + '  + getValue('denumireMaterial3', data) + '('+ getValue('denumireCod3', data) + '/'+ getValue('NrLam3', data) + ' lam.)':'';
+    return  mat1 + mat2 + mat3
+  }
+  //----------------------------------------------------------------------------------------------------
+  consoleFormater=(field, data)=>{
+    return getValue('console', data)  + (getValue('console', data)?'buc (' + getValue('denumireConsole', data)+')':'')  
+  }
+ 
+  //----------------------------------------------------------------------------------------------------
   currencyFormatter=(field, data)=>{
     return  getValue(field, data) + ' Lei';
   }
@@ -259,7 +271,15 @@ adaugaItem=()=>{
     'culoareLamela':currentItem.culoareLamela?currentItem.culoareLamela:0,
     'culoareCaseta':currentItem.culoareCaseta?currentItem.culoareCaseta:0,
     'material':currentItem.material?currentItem.material:0,
+    'idCod':currentItem.idCod?currentItem.idCod:0,
+    'NrLam':currentItem.NrLam?currentItem.NrLam:0,
     'codMaterial':currentItem.codMaterial?currentItem.codMaterial:'',
+    'material2':currentItem.material2?currentItem.material2:0,
+    'idCod2':currentItem.idCod2?currentItem.idCod2:0,
+    'NrLam2':currentItem.NrLam2?currentItem.NrLam2:0,
+    'material3':currentItem.material3?currentItem.material3:0,
+    'idCod3':currentItem.idCod3?currentItem.idCod3:0,
+    'NrLam3':currentItem.NrLam3?currentItem.NrLam3:0,
     'lungimeSnur':Number(currentItem.lungimeSnur?currentItem.lungimeSnur:0),
     'actionare':new Date().toISOString().slice(0, 19).replace('T', ' '),
     'tipActionare':currentItem.tipActionare?currentItem.tipActionare:0,
@@ -270,6 +290,7 @@ adaugaItem=()=>{
     'optional2':currentItem.optional2?currentItem.optional2:0,
     'optional3':currentItem.optional3?currentItem.optional3:0,
     'console':Number(currentItem.console?currentItem.console:0),
+    'TipConsole':currentItem.TipConsole?currentItem.TipConsole:0,
     'buc':Number(currentItem.buc?currentItem.buc:0),
     'mp':Number(currentItem.mp?currentItem.mp:0),
     'pretCatalog':Number(currentItem.pretCatalog?currentItem.pretCatalog:0),
@@ -282,10 +303,16 @@ adaugaItem=()=>{
     'denumireCuloareLamela':currentItem.denumireCuloareLamela?currentItem.denumireCuloareLamela:'',
     'denumireCuloareCaseta':currentItem.denumireCuloareCaseta?currentItem.denumireCuloareCaseta:'',
     'denumireMaterial':currentItem.denumireMaterial?currentItem.denumireMaterial:'',
+    'denumireMaterial2':currentItem.denumireMaterial2?currentItem.denumireMaterial2:'',
+    'denumireMaterial3':currentItem.denumireMaterial3?currentItem.denumireMaterial3:'',
     'denumireTipActionare':currentItem.denumireTipActionare?currentItem.denumireTipActionare:'',
     'denumireOptional1':currentItem.denumireOptional1?currentItem.denumireOptional1:'',
     'denumireOptional2':currentItem.denumireOptional2?currentItem.denumireOptional2:'',
     'denumireOptional3':currentItem.denumireOptional3?currentItem.denumireOptional3:'',
+    'denumireCod':currentItem.denumireCod?currentItem.denumireCod:'',
+    'denumireCod2':currentItem.denumireCod?currentItem.denumireCod:'',
+    'denumireCod3':currentItem.denumireCod?currentItem.denumireCod:'',
+    'denumireConsole':currentItem.denumireConsole?currentItem.denumireConsole:'',
   }
 
   if (this.masterGrid) {
@@ -317,7 +344,15 @@ modificaItem=()=>{
       'culoareLamela':currentItem.culoareLamela?currentItem.culoareLamela:0,
       'culoareCaseta':currentItem.culoareCaseta?currentItem.culoareCaseta:0,
       'material':currentItem.material?currentItem.material:0,
+      'idCod':currentItem.idCod?currentItem.idCod:0,
+      'NrLam':currentItem.NrLam?currentItem.NrLam:0,
       'codMaterial':currentItem.codMaterial?currentItem.codMaterial:'',
+      'material2':currentItem.material2?currentItem.material2:0,
+      'idCod2':currentItem.idCod2?currentItem.idCod2:0,
+      'NrLam2':currentItem.NrLam2?currentItem.NrLam2:0,
+      'material3':currentItem.material3?currentItem.material3:0,
+      'idCod3':currentItem.idCod3?currentItem.idCod3:0,
+      'NrLam3':currentItem.NrLam3?currentItem.NrLam3:0,
       'lungimeSnur':Number(currentItem.lungimeSnur?currentItem.lungimeSnur:0),
       'actionare':currentItem.actionare?currentItem.actionare:'',
       'tipActionare':currentItem.tipActionare?currentItem.tipActionare:0,
@@ -328,6 +363,7 @@ modificaItem=()=>{
       'optional2':currentItem.optional2?currentItem.optional2:0,
       'optional3':currentItem.optional3?currentItem.optional3:0,
       'console':Number(currentItem.console?currentItem.console:0),
+      'TipConsole':currentItem.TipConsole?currentItem.TipConsole:0,
       'buc':Number(currentItem.buc?currentItem.buc:0),
       'mp':Number(currentItem.mp?currentItem.mp:0),
       'pretCatalog':Number(currentItem.pretCatalog?currentItem.pretCatalog:0),
@@ -340,10 +376,16 @@ modificaItem=()=>{
       'denumireCuloareLamela':currentItem.denumireCuloareLamela?currentItem.denumireCuloareLamela:'',
       'denumireCuloareCaseta':currentItem.denumireCuloareCaseta?currentItem.denumireCuloareCaseta:'',
       'denumireMaterial':currentItem.denumireMaterial?currentItem.denumireMaterial:'',
+      'denumireMaterial2':currentItem.denumireMaterial2?currentItem.denumireMaterial2:'',
+      'denumireMaterial3':currentItem.denumireMaterial3?currentItem.denumireMaterial3:'',
       'denumireTipActionare':currentItem.denumireTipActionare?currentItem.denumireTipActionare:'',
       'denumireOptional1':currentItem.denumireOptional1?currentItem.denumireOptional1:'',
       'denumireOptional2':currentItem.denumireOptional2?currentItem.denumireOptional2:'',
       'denumireOptional3':currentItem.denumireOptional3?currentItem.denumireOptional3:'',
+      'denumireCod':currentItem.denumireCod?currentItem.denumireCod:'',
+      'denumireCod2':currentItem.denumireCod2?currentItem.denumireCod2:'',
+      'denumireCod3':currentItem.denumireCod?currentItem.denumireCod:'',
+      'denumireConsole':currentItem.denumireConsole?currentItem.denumireConsole:'',
     }      
     updatedOrder.comandarepers.splice(foundReperUpdatedOrder,1,updatedItem)
     const TotalValoareCatalog=updatedOrder.comandarepers.reduce((accumulator, currentValue)=> {return accumulator + currentValue.pretCatalog;},0)
@@ -478,16 +520,11 @@ render(){
             />
             <ColumnDirective
               clipMode="EllipsisWithTooltip"
-              field="denumireMaterial"
-              headerText="MATERIAL"
+              field="mat"
+              headerText="MATERIALE"
               textAlign="Center"
-              width="100"
-            />
-            <ColumnDirective
-              field="codMaterial"
-              headerText="COD CULOARE"
-              textAlign="Center"
-              width="90"
+              width="150"
+              valueAccessor= {this.materialFormater}
             />
             <ColumnDirective
               field="lungimeSnur"
@@ -495,14 +532,16 @@ render(){
               headerText="LUNGIME SNUR ACTIONARE"
               textAlign="Center"
               width="110"
+              
             />
             
             <ColumnDirective
-              field="console"
+              field="console1"
               format="N"
               headerText="CONSOLE (buc)"
               textAlign="Center"
               width="90"
+              valueAccessor={this.consoleFormater}
             />
             <ColumnDirective
               field="buc"

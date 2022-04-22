@@ -31,7 +31,7 @@ export const actJV=(vInaltime=0)=>{
 }
 //--------------------------------------------------------------------------------------------
 export const pretJV=(vMP=0,vPretMaterial=0,vConsole=0,vPretConsole=0,vBuc)=>{
-  return ((vMP * vPretMaterial + vConsole * vPretConsole) * vBuc).toFixed(2)
+  return ((vMP * vPretMaterial + vConsole * vPretConsole) * vBuc).toFixed(2) 
 }
 //--------------------------------------------------------------------------------------------
 

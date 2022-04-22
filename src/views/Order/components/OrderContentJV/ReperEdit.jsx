@@ -29,11 +29,12 @@ import {
   Hidden
 } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 
 class ReperEdit extends React.Component {
   constructor(props) {
-    super(props);    
+    super(props);  
     this.fieldsMaterial = { text: 'denumire', value: 'key' };
     this.fieldsDeschidere={ text: 'denumire', value: 'value' };
     this.deschideri=[
@@ -43,8 +44,15 @@ class ReperEdit extends React.Component {
       {denumire:'4',key:'4', atentionare:'Ati selectat o actionare prin care lamelele se vor strange invers tip Cortina (toate pe mijlocul garnisei).'},
       {denumire:'L',key:'L', atentionare:'Doriti sa dati in executie doar lamelele de jaluzele, fara garnisa (trebuie sa introduceti la casuta Lungime numarul de lamele, ex.23).'}, 
       {denumire:'DA',key:'DA', atentionare:'Doriti sa dati in executie o garnisa cu dubla actionare (snurul de actionare de ambele parti, care actioneaza independent lungimi diferite de garnisa).'}]
-    
+    this.tipConsole=[
+      {denumire:'SIMPLE 10cm', key:1},
+      {denumire:'REGLABILE 10-15cm', key:2},
+      {denumire:'PRELUNGITOR 10-20cm', key:3}
+    ]
+
   }
+
+
   
   //-------------------------------------------------------------------------------------------------------------------
     onChangeMaterial= (e)=>{ 
@@ -57,14 +65,144 @@ class ReperEdit extends React.Component {
       if (currentItem){
         value = e.target.value?materiale.filter(mat=>mat.denumire===e.target.value)[0].key:0
         value2=e.target.value?e.target.value:''
+
+        if( currentItem.idCod || currentItem.denumireCod || currentItem.NrLam) {
+          setCurrentItem({...currentItem, [key]: value, [key2]:value2, idCod:0, denumireCod:'', NrLam:0})
+        } else{
+          setCurrentItem({...currentItem, [key]: value, [key2]:value2});
+        }
       }
-      setCurrentItem({...currentItem, [key]: value, [key2]:value2})
       debounce(this.calculPretCatalog,500)()
       setTimeout(() => {
         validation(this.props.currentItem,this.props.errors,this.props.setErrors)
         this.handleAtentionareMaterial(e)
       }, 501);
     }
+
+     //-------------------------------------------------------------------------------------------------------------------
+     onChangeMaterial2= (e)=>{ 
+       e.persist()
+       const {setCurrentItem, currentItem, materiale}=this.props;
+       let key = 'material2';
+       let key2='denumireMaterial2'
+       let value=null;
+       let value2='';
+       if (currentItem){
+         value = e.target.value?materiale.filter(mat=>mat.denumire===e.target.value)[0].key:0
+         value2=e.target.value?e.target.value:''
+         
+         if( currentItem.idCod2 || currentItem.denumireCod2 || currentItem.NrLam2) {
+           setCurrentItem({...currentItem, [key]: value, [key2]:value2, idCod2:0, denumireCod2:'', NrLam2:0})
+         } else{
+           setCurrentItem({...currentItem, [key]: value, [key2]:value2});
+         }
+       }
+       debounce(this.calculPretCatalog,500)()
+       setTimeout(() => {
+         validation(this.props.currentItem,this.props.errors,this.props.setErrors)
+         this.handleAtentionareMaterial(e)
+       }, 501);
+     }
+
+      //-------------------------------------------------------------------------------------------------------------------
+      onChangeMaterial3= (e)=>{ 
+        e.persist()
+        const {setCurrentItem, currentItem, materiale}=this.props;
+        let key = 'material3';
+        let key2='denumireMaterial3'
+        let value=null;
+        let value2='';
+        if (currentItem){
+          value = e.target.value?materiale.filter(mat=>mat.denumire===e.target.value)[0].key:0
+          value2=e.target.value?e.target.value:''
+
+          if( currentItem.idCod3 || currentItem.denumireCod3 || currentItem.NrLam3) {
+            setCurrentItem({...currentItem, [key]: value, [key2]:value2, idCod3:0, denumireCod3:'', NrLam3:0})
+          } else{
+            setCurrentItem({...currentItem, [key]: value, [key2]:value2});
+          }
+        }
+        debounce(this.calculPretCatalog,500)()
+        setTimeout(() => {
+          validation(this.props.currentItem,this.props.errors,this.props.setErrors)
+          this.handleAtentionareMaterial(e)
+        }, 501);
+      }
+    //-------------------------------------------------------------------------------------------------------------------
+    onChangeCod= (e)=>{ 
+      e.persist()
+      const {setCurrentItem, currentItem, materiale}=this.props;
+      let key = 'idCod';
+      let key2='denumireCod'
+      let value=null;
+      let value2='';
+      if (currentItem){
+        value = e.target.value?materiale.filter(material=>material.key===currentItem.material)[0].coduris.filter(cod=>cod.denumire===e.target.value && cod.tipProdus==='jv' )[0].key:0
+        value2=e.target.value?e.target.value:''
+        if(currentItem.NrLam) {
+          setCurrentItem({...currentItem, [key]: value, [key2]:value2});
+        } else{
+          setCurrentItem({...currentItem, [key]: value, [key2]:value2 , NrLam:this.handleCarucioare()})
+        }
+      }
+
+      setTimeout(() => {
+        validation(this.props.currentItem,this.props.errors,this.props.setErrors)
+        this.handleAtentionareCod(e)
+      }, 501);
+    }
+     //-------------------------------------------------------------------------------------------------------------------
+     onChangeCod2= (e)=>{ 
+       e.persist()
+       const {setCurrentItem, currentItem, materiale}=this.props;
+       let key = 'idCod2';
+       let key2='denumireCod2'
+       let value=null;
+       let value2='';
+       if (currentItem){
+         value = e.target.value?materiale.filter(material=>material.key===currentItem.material2)[0].coduris.filter(cod=>cod.denumire===e.target.value && cod.tipProdus==='jv' )[0].key:0
+         value2=e.target.value?e.target.value:''
+       }
+       setCurrentItem({...currentItem, [key]: value, [key2]:value2})
+       setTimeout(() => {
+         validation(this.props.currentItem,this.props.errors,this.props.setErrors)
+         this.handleAtentionareCod2(e)
+       }, 501);
+     }
+    //-------------------------------------------------------------------------------------------------------------------
+    onChangeCod3= (e)=>{ 
+      e.persist()
+      const {setCurrentItem, currentItem, materiale}=this.props;
+      let key = 'idCod3';
+      let key2='denumireCod3'
+      let value=null;
+      let value2='';
+      if (currentItem){
+        value = e.target.value?materiale.filter(material=>material.key===currentItem.material3)[0].coduris.filter(cod=>cod.denumire===e.target.value && cod.tipProdus==='jv' )[0].key:0
+        value2=e.target.value?e.target.value:''
+      }
+      setCurrentItem({...currentItem, [key]: value, [key2]:value2})
+      setTimeout(() => {
+        validation(this.props.currentItem,this.props.errors,this.props.setErrors)
+        this.handleAtentionareCod3(e)
+      }, 501);
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------
+    onChangeTipConsole= (e)=>{ 
+      e.persist()
+      const {setCurrentItem, currentItem}=this.props;
+      let key = 'TipConsole';
+      let key2='denumireConsole'
+      let value=null;
+      let value2='';
+      if (currentItem){
+        value = e.target.value?this.tipConsole.filter(tip=>tip.denumire===e.target.value)[0].key:0
+        value2=e.target.value?e.target.value:''
+      }
+      setCurrentItem({...currentItem, [key]: value, [key2]:value2})
+    }
+
     //-------------------------------------------------------------------------------------------------------------------
     
     onChangeDeschidere= (e)=>{
@@ -106,6 +244,10 @@ class ReperEdit extends React.Component {
         debounce(this.calculMp,500)()
       }
 
+      if(key==='NrLam' || key==='NrLam2' || key==='NrLam3' ){
+        debounce(this.calculPretCatalog,500)()
+      }
+
       setTimeout(() => {
         validation(this.props.currentItem,this.props.errors,this.props.setErrors)
       }, 50);
@@ -125,12 +267,34 @@ class ReperEdit extends React.Component {
       const pretConsole=this.props.optionale.filter(optional=>optional.key===1)[0].pret 
       
       const {currentItem, setCurrentItem, materiale,currentUser}=this.props 
-      const pretMaterialSelectat=materiale.filter(mat=>(mat.key===currentItem.material))[0]?materiale.filter(mat=>(mat.key===currentItem.material))[0].pret:0
+      const pretMaterialSelectat1=materiale.filter(mat=>(mat.key===currentItem.material))[0]?materiale.filter(mat=>(mat.key===currentItem.material))[0].pret:0
+      const pretMaterialSelectat2=materiale.filter(mat=>(mat.key===currentItem.material2))[0]?materiale.filter(mat=>(mat.key===currentItem.material2))[0].pret:0
+      const pretMaterialSelectat3=materiale.filter(mat=>(mat.key===currentItem.material3))[0]?materiale.filter(mat=>(mat.key===currentItem.material3))[0].pret:0
       const discount=currentUser.idFirma.discountJV
       const adaos=currentUser.idFirma.adaosJV
-      const pretCatalog=pretJV(mpJV(currentItem.lungime, currentItem.inaltime, currentItem.deschidere),pretMaterialSelectat,currentItem.console,pretConsole,currentItem.buc)
-      const pretCuDiscount=(pretJV(mpJV(currentItem.lungime, currentItem.inaltime, currentItem.deschidere),pretMaterialSelectat,currentItem.console,pretConsole,currentItem.buc)*(1-(discount?discount/100:0))).toFixed(2)
-      const pretClientFinal=(pretJV(mpJV(currentItem.lungime, currentItem.inaltime, currentItem.deschidere),pretMaterialSelectat,currentItem.console,pretConsole,currentItem.buc)*(1+(adaos?adaos/100:0))).toFixed(2)
+      const nrTotalLamele = (currentItem.NrLam*1 || 0) + (currentItem.NrLam2*1 || 0) + (currentItem.NrLam3*1 || 0)
+      console.log(nrTotalLamele,'nrTotalLamele')
+
+      const proportieLam1= (nrTotalLamele && currentItem.NrLam)? currentItem.NrLam*1/nrTotalLamele:1
+      const proportieLam2= (nrTotalLamele && currentItem.NrLam2)? currentItem.NrLam2*1/nrTotalLamele:0
+      const proportieLam3= (nrTotalLamele&& currentItem.NrLam3)? currentItem.NrLam3*1/nrTotalLamele:0
+      console.log(proportieLam1,'proportieLam1')
+      console.log(proportieLam2,'proportieLam2')
+      console.log(proportieLam3,'proportieLam3')
+
+      const pretCatalog1=pretJV(mpJV(currentItem.lungime, currentItem.inaltime, currentItem.deschidere),pretMaterialSelectat1,0,0,currentItem.buc) * proportieLam1
+      console.log(pretCatalog1,'pretCatalog1')
+      const pretCatalog2=pretJV(mpJV(currentItem.lungime, currentItem.inaltime, currentItem.deschidere),pretMaterialSelectat2,0,0,currentItem.buc)* proportieLam2
+      console.log(pretCatalog2,'pretCatalog2')
+      const pretCatalog3=pretJV(mpJV(currentItem.lungime, currentItem.inaltime, currentItem.deschidere),pretMaterialSelectat3,0,0,currentItem.buc)* proportieLam3
+      console.log(pretCatalog3,'pretCatalog3')
+      const pretCatalogConsole=pretJV(0,0,currentItem.console,pretConsole,currentItem.buc)
+      console.log(pretCatalogConsole,'pretCatalogConsole')
+      const pretCatalog=(pretCatalog1*1 + pretCatalog2*1 + pretCatalog3*1 + pretCatalogConsole*1).toFixed(2)
+      console.log(pretCatalog,'pretCatalog')
+      
+      const pretCuDiscount=(pretCatalog*(1-(discount?discount/100:0))).toFixed(2)
+      const pretClientFinal=(pretCatalog*(1+(adaos?adaos/100:0))).toFixed(2)
       setCurrentItem({...currentItem, pretCatalog:pretCatalog,pretCuDiscount:pretCuDiscount,pretClientFinal:pretClientFinal})
     }
      
@@ -142,7 +306,7 @@ class ReperEdit extends React.Component {
     //-------------------------------------------------------------------------------------------------------------------
     handlerSumbit=async (e)=>{
       e.preventDefault()
-      const {openEditItem, adaugaItem, modificaItem, enqueueSnackbar}=this.props;
+      const {openEditItem, adaugaItem, modificaItem, enqueueSnackbar, currentItem}=this.props;
       const validare=await validation(this.props.currentItem,this.props.errors,this.props.setErrors)
       
       if (validare===false){
@@ -152,6 +316,13 @@ class ReperEdit extends React.Component {
         return 
       }
 
+       
+      if (((currentItem.NrLam || 0)*1 + (currentItem.NrLam2 || 0)*1 + (currentItem.NrLam3 ||0)*1)!==this.handleCarucioare()){
+        enqueueSnackbar('Numarul total de lamele trebuie sa fie egal cu numarul de carucioare:'+ this.handleCarucioare()  + ' # Nr total lamele: '+ (currentItem.NrLam*1 + currentItem.NrLam2*1 + currentItem.NrLam3*1) +' !',{ 
+          variant: 'error',
+        })
+        return 
+      }
       if(openEditItem.add===true){
         return adaugaItem()
       }else{
@@ -177,11 +348,56 @@ class ReperEdit extends React.Component {
           enqueueSnackbar(denumireMaterial+':'+mesaj,{ 
             variant: 'warning',
           },15000)
-        }
-        
-
+        } 
       }
-     
+    }
+   
+    //-------------------------------------------------------------------------------------------------------------------
+    handleAtentionareCod=(e)=>{
+      const {currentItem, materiale, enqueueSnackbar}=this.props;
+      if (currentItem){
+        if(e.target.value){
+          var mesaj=materiale.filter(material=>material.denumire===currentItem.material)[0]?materiale.filter(material=>material.denumire===currentItem.material)[0].coduris.filter(cod=>cod.denumire===currentItem.idcod && cod.activ==='DA')[0].atentionare:''
+          var denumireCod=materiale.filter(material=>material.denumire===currentItem.material)[0]?materiale.filter(material=>material.denumire===currentItem.material)[0].coduris.filter(cod=>cod.denumire===currentItem.idcod && cod.activ==='DA')[0].denumire:''
+        }
+        if(mesaj){
+          enqueueSnackbar(denumireCod+':'+mesaj,{ 
+            variant: 'warning',
+          },20000)
+        }
+      }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------
+    handleAtentionareCod2=(e)=>{
+      const {currentItem, materiale, enqueueSnackbar}=this.props;
+      if (currentItem){
+        if(e.target.value){
+          var mesaj=materiale.filter(material=>material.denumire===currentItem.material2)[0]?materiale.filter(material=>material.denumire===currentItem.material2)[0].coduris.filter(cod=>cod.denumire===currentItem.idcod && cod.activ==='DA')[0].atentionare:''
+          var denumireCod=materiale.filter(material=>material.denumire===currentItem.material2)[0]?materiale.filter(material=>material.denumire===currentItem.material2)[0].coduris.filter(cod=>cod.denumire===currentItem.idcod && cod.activ==='DA')[0].denumire:''
+        }
+        if(mesaj){
+          enqueueSnackbar(denumireCod+':'+mesaj,{ 
+            variant: 'warning',
+          },20000)
+        }
+      }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------
+    handleAtentionareCod3=(e)=>{
+      const {currentItem, materiale, enqueueSnackbar}=this.props;
+      if (currentItem){
+        if(e.target.value){
+          var mesaj=materiale.filter(material=>material.denumire===currentItem.material3)[0]?materiale.filter(material=>material.denumire===currentItem.material3)[0].coduris.filter(cod=>cod.denumire===currentItem.idcod && cod.activ==='DA')[0].atentionare:''
+          var denumireCod=materiale.filter(material=>material.denumire===currentItem.material3)[0]?materiale.filter(material=>material.denumire===currentItem.material3)[0].coduris.filter(cod=>cod.denumire===currentItem.idcod && cod.activ==='DA')[0].denumire:''
+        }
+        if(mesaj){
+          enqueueSnackbar(denumireCod+':'+mesaj,{ 
+            variant: 'warning',
+          },20000)
+        }
+      }
     }
     //-------------------------------------------------------------------------------------------------------------------
     handleAtentionareDeschidere=(e)=>{
@@ -209,7 +425,7 @@ class ReperEdit extends React.Component {
     handleCarucioare=()=>{
       const {currentItem, materiale}=this.props
       let tipMaterial = materiale.filter(material=>material.key===currentItem.material)[0] ? materiale.filter(material=>material.key===currentItem.material)[0].tipMaterial:'0'
-      return carucioareJV(currentItem.lungime, currentItem.deschidere, tipMaterial)
+      return carucioareJV(currentItem.lungime, currentItem.deschidere, tipMaterial)*1
     }
 
     //----------------------------------------------------------------------------------------------------
@@ -244,6 +460,7 @@ class ReperEdit extends React.Component {
                   container
                   spacing={1}
                 >
+                  {/** ---------------------- LATIME-------------------------- **/}
                   <Grid
                     item
                     lg={2}
@@ -270,6 +487,7 @@ class ReperEdit extends React.Component {
                       
                     />
                   </Grid>
+                  {/** ---------------------- INALTIME -------------------------- **/}
                   <Grid
                     item
                     lg={2}
@@ -294,7 +512,7 @@ class ReperEdit extends React.Component {
                       variant="outlined"
                     />
                   </Grid>
-
+                  {/** ---------------------- TIP DESCHIDERE -------------------------- **/}
                   <Grid
                     item
                     lg={1}
@@ -336,45 +554,8 @@ class ReperEdit extends React.Component {
                       ))}
                     </TextField>
                   </Grid>
-
-                  <Grid
-                    item
-                    lg={2}
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      InputLabelProps={{shrink:true}}
-                      label="Material"
-                      margin="dense"
-                      name="material"
-                      onChange={this.onChangeMaterial}
-                      required
-                      select
-                      SelectProps={{
-                        native: true,
-                        MenuProps: {
-                        }
-                      }}
-                      value={currentItem.denumireMaterial || ''}
-                      variant="outlined"
-                    > 
-                      <option
-                        key={null}
-                        value={''}
-                      >
-                        {''}
-                      </option>
-                      {materiale.filter(material=>material.activ.toUpperCase()!=='NU').sort(dynamicSort('denumire')).map(option => (
-                        <option
-                          key={option.key}
-                          value={option.denumire}
-                        >
-                          {option.denumire}
-                        </option>
-                      ))}
-                    </TextField>
-                  </Grid>
+                  {/** ---------------------- COD CULOARE (DEZACTIVAT) -------------------------- **/}
+                  {/** fost cod culoare vechi
                   <Grid
                     item
                     lg={1}
@@ -391,7 +572,10 @@ class ReperEdit extends React.Component {
                       value={currentItem.codMaterial || ''}
                       variant="outlined"
                     />
-                  </Grid>
+                  </Grid> 
+                     **/}
+
+                  {/** ---------------------- LUNGIME SNUR -------------------------- **/}
                   <Grid
                     item
                     lg={2}
@@ -413,10 +597,11 @@ class ReperEdit extends React.Component {
                       variant="outlined"
                     />
                   </Grid>
+                  {/** ---------------------- CONSOLE -------------------------- **/}
                   <Grid
                     item
                     lg={1}
-                    md={12}
+                    md={6}
                   >
                     <TextField
                       fullWidth
@@ -436,10 +621,408 @@ class ReperEdit extends React.Component {
                       variant="outlined"
                     />
                   </Grid>
-
+                  {/** ---------------------- TIP CONSOLE -------------------------- **/}
                   <Grid
                     item
-                    lg={1}
+                    lg={2}
+                    md={6}
+                  >
+                    <TextField
+                      fullWidth
+                      InputLabelProps={{shrink:true}}
+                      label="Tip console"
+                      margin="dense"
+                      name="TipConsole"
+                      onChange={this.onChangeTipConsole}
+                      required={currentItem.console >0 ?true:false}
+                      select
+                      SelectProps={{
+                        native: true,
+                        MenuProps: {
+                        }
+                      }}
+                      value={currentItem.denumireConsole || ''}
+                      variant="outlined"
+                    > 
+                      <option
+                        key={null}
+                        value={''}
+                      >
+                        {''}
+                      </option>
+                      {this.tipConsole.map(option => (
+                        <option
+                          key={option.key}
+                          value={option.denumire}
+                        >
+                          {option.denumire}
+                        </option>
+                      ))}
+                    </TextField>
+                  </Grid>
+                 
+                  {/** ------------------------------------------ GRUP MATERIAL 1 ------------------------- -------------------------- **/}
+                  <Grid
+                    container
+                    spacing={1}
+                  >
+                    {/** ---------------------- MATERIAL 1 -------------------------- **/}
+                    <Grid
+                      item
+                      lg={2}
+                      xs={6}
+                    >
+                      <TextField
+                        fullWidth
+                        InputLabelProps={{shrink:true}}
+                        label="Material 1"
+                        margin="dense"
+                        name="material"
+                        onChange={this.onChangeMaterial}
+                        required
+                        select
+                        SelectProps={{
+                          native: true,
+                          MenuProps: {
+                          }
+                        }}
+                        value={currentItem.denumireMaterial || ''}
+                        variant="outlined"
+                      > 
+                        <option
+                          key={null}
+                          value={''}
+                        >
+                          {''}
+                        </option>
+                        {materiale.filter(material=>material.activ.toUpperCase()!=='NU').sort(dynamicSort('denumire')).map(option => (
+                          <option
+                            key={option.key}
+                            value={option.denumire}
+                          >
+                            {option.denumire}
+                          </option>
+                        ))}
+                      </TextField>
+                    </Grid> 
+
+                    {/** ---------------------- COD 1 -------------------------- **/} 
+                    <Grid
+                      item
+                      lg={2}
+                      xs={3}
+                    >
+                      <TextField
+                        fullWidth
+                        InputLabelProps={{shrink:true}}
+                        label="Cod 1"
+                        margin="dense"
+                        name="idCod"
+                        onChange={this.onChangeCod}
+                        required={currentItem.denumireMaterial!=='GARNISA' ?true:false}
+                        select
+                        SelectProps={{
+                          native: true,
+                          MenuProps: {
+                          }
+                        }}
+                        value={currentItem.denumireCod || ''}
+                        variant="outlined"
+                      > 
+                        <option
+                          key={null}
+                          value={''}
+                        >
+                          {''}
+                        </option>
+                        {materiale.filter(material=>material.activ.toUpperCase()!=='NU' && material.key===currentItem.material)[0]?
+                          materiale.filter(material=>material.activ.toUpperCase()!=='NU' && material.key===currentItem.material)[0].coduris.filter(cod=>cod.activ.toUpperCase()!=='NU' && cod.tipProdus==='jv')[0]?
+                            materiale.filter(material=>material.activ.toUpperCase()!=='NU' && material.key===currentItem.material)[0].coduris.filter(cod=>cod.activ.toUpperCase()!=='NU' && cod.tipProdus==='jv').sort(dynamicSort('denumire')).map(option => (
+                              <option
+                                key={option.key}
+                                value={option.denumire}
+                              >
+                                {option.denumire}
+                              </option>
+                            )):0:0}
+                      </TextField>
+                    </Grid>
+
+                    {/** ---------------------- NRLAM 1 -------------------------- **/}
+                    <Grid
+                      item
+                      lg={1}
+                      xs={3}
+                    >
+                      <TextField
+                        error={((currentItem.NrLam || 0)*1 + (currentItem.NrLam2 || 0)*1 + (currentItem.NrLam3 ||0)*1)!==this.handleCarucioare()?true:false}
+                        fullWidth
+                        helperText={((currentItem.NrLam || 0)*1 + (currentItem.NrLam2 || 0)*1 + (currentItem.NrLam3 ||0)*1)!==this.handleCarucioare() && currentItem.denumireCod ?'Lamele # Carucioare!':''}
+                        InputLabelProps={{
+                          shrink:true
+                        }}
+                        inputProps={{style: { textAlign: 'right' }}}
+                        label="Nr.lam.1"
+                        margin="dense"
+                        name="NrLam"
+                        onBlur={this.calculPretCatalog}
+                        onChange={this.onChange}
+                        onKeyDown={this.handlerKeyDown}
+                        required={currentItem.denumireMaterial!=='GARNISA' ?true:false}
+                        value={currentItem.NrLam || ''}
+                        variant="outlined"
+                      />
+                    </Grid>
+                  </Grid>   
+
+                  {/** ------------------------------------------ GRUP MATERIAL 2 ------------------------- -------------------------- **/}
+                  <Grid
+                    container
+                    spacing={1}
+                  >
+                    {/** ---------------------- MATERIAL 2 -------------------------- **/}
+                    <Grid
+                      item
+                      lg={2}
+                      xs={6}
+                    >
+                      <TextField
+                        fullWidth
+                        InputLabelProps={{shrink:true}}
+                        label="Material 2"
+                        margin="dense"
+                        name="material2"
+                        onChange={this.onChangeMaterial2}
+                        select
+                        SelectProps={{
+                          native: true,
+                          MenuProps: {
+                          }
+                        }}
+                        value={currentItem.denumireMaterial2 || ''}
+                        variant="outlined"
+                      > 
+                        <option
+                          key={null}
+                          value={''}
+                        >
+                          {''}
+                        </option>
+                        {materiale.filter(material=>material.activ.toUpperCase()!=='NU').sort(dynamicSort('denumire')).map(option => (
+                          <option
+                            key={option.key}
+                            value={option.denumire}
+                          >
+                            {option.denumire}
+                          </option>
+                        ))}
+                      </TextField>
+                    </Grid> 
+
+                    {/** ---------------------- COD 2 -------------------------- **/} 
+                    <Grid
+                      item
+                      lg={2}
+                      xs={3}
+                    >
+                      <TextField
+                        fullWidth
+                        InputLabelProps={{shrink:true}}
+                        label="Cod 2"
+                        margin="dense"
+                        name="idCod2"
+                        onChange={this.onChangeCod2}
+                        required={currentItem.denumireMaterial2?true:false}
+                        select
+                        SelectProps={{
+                          native: true,
+                          MenuProps: {
+                          }
+                        }}
+                        value={currentItem.denumireCod2 || ''}
+                        variant="outlined"
+                      > 
+                        <option
+                          key={null}
+                          value={''}
+                        >
+                          {''}
+                        </option>
+                        {materiale.filter(material=>material.activ.toUpperCase()!=='NU' && material.key===currentItem.material2)[0]?
+                          materiale.filter(material=>material.activ.toUpperCase()!=='NU' && material.key===currentItem.material2)[0].coduris.filter(cod=>cod.activ.toUpperCase()!=='NU' && cod.tipProdus==='jv')[0]?
+                            materiale.filter(material=>material.activ.toUpperCase()!=='NU' && material.key===currentItem.material2)[0].coduris.filter(cod=>cod.activ.toUpperCase()!=='NU' && cod.tipProdus==='jv').sort(dynamicSort('denumire')).map(option => (
+                              <option
+                                key={option.key}
+                                value={option.denumire}
+                              >
+                                {option.denumire}
+                              </option>
+                            )):0:0}
+                      </TextField>
+                    </Grid>
+
+                    {/** ---------------------- NRLAM 2 -------------------------- **/}
+                    <Grid
+                      item
+                      lg={1}
+                      xs={3}
+                    >
+                      <TextField
+                        fullWidth
+                        InputLabelProps={{
+                          shrink:true
+                        }}
+                        inputProps={{style: { textAlign: 'right' }}}
+                        label="Nr.lam.2"
+                        margin="dense"
+                        name="NrLam2"
+                        onBlur={this.calculPretCatalog}
+                        onChange={this.onChange}
+                        onKeyDown={this.handlerKeyDown}
+                        required={currentItem.denumireMaterial2?true:false}
+                        value={currentItem.NrLam2 || ''}
+                        variant="outlined"
+                      />
+                    </Grid>
+                  </Grid> 
+                  
+                  {/** ------------------------------------------ GRUP MATERIAL 3 ------------------------- -------------------------- **/}
+                  <Grid
+                    container
+                    spacing={1}
+                  >
+                    {/** ---------------------- MATERIAL 3 -------------------------- **/}
+                    <Grid
+                      item
+                      lg={2}
+                      xs={6}
+                    >
+                      <TextField
+                        fullWidth
+                        InputLabelProps={{shrink:true}}
+                        label="Material 3"
+                        margin="dense"
+                        name="material3"
+                        onChange={this.onChangeMaterial3}
+                        select
+                        SelectProps={{
+                          native: true,
+                          MenuProps: {
+                          }
+                        }}
+                        value={currentItem.denumireMaterial3 || ''}
+                        variant="outlined"
+                      > 
+                        <option
+                          key={null}
+                          value={''}
+                        >
+                          {''}
+                        </option>
+                        {materiale.filter(material=>material.activ.toUpperCase()!=='NU').sort(dynamicSort('denumire')).map(option => (
+                          <option
+                            key={option.key}
+                            value={option.denumire}
+                          >
+                            {option.denumire}
+                          </option>
+                        ))}
+                      </TextField>
+                    </Grid> 
+
+                    {/** ---------------------- COD 3 -------------------------- **/} 
+                    <Grid
+                      item
+                      lg={2}
+                      xs={3}
+                    >
+                      <TextField
+                        fullWidth
+                        InputLabelProps={{shrink:true}}
+                        label="Cod 3"
+                        margin="dense"
+                        name="idCod3"
+                        onChange={this.onChangeCod}
+                        required={currentItem.denumireMaterial3?true:false}
+                        select
+                        SelectProps={{
+                          native: true,
+                          MenuProps: {
+                          }
+                        }}
+                        value={currentItem.denumireCod3 || ''}
+                        variant="outlined"
+                      > 
+                        <option
+                          key={null}
+                          value={''}
+                        >
+                          {''}
+                        </option>
+                        {materiale.filter(material=>material.activ.toUpperCase()!=='NU' && material.key===currentItem.material3)[0]?
+                          materiale.filter(material=>material.activ.toUpperCase()!=='NU' && material.key===currentItem.material3)[0].coduris.filter(cod=>cod.activ.toUpperCase()!=='NU' && cod.tipProdus==='jv')[0]?
+                            materiale.filter(material=>material.activ.toUpperCase()!=='NU' && material.key===currentItem.material3)[0].coduris.filter(cod=>cod.activ.toUpperCase()!=='NU' && cod.tipProdus==='jv').sort(dynamicSort('denumire')).map(option => (
+                              <option
+                                key={option.key}
+                                value={option.denumire}
+                              >
+                                {option.denumire}
+                              </option>
+                            )):0:0}
+                      </TextField>
+                    </Grid>
+
+                    {/** ---------------------- NRLAM 3 -------------------------- **/}
+                    <Grid
+                      item
+                      lg={1}
+                      xs={3}
+                    >
+                      <TextField
+                        fullWidth
+                        InputLabelProps={{
+                          shrink:true
+                        }}
+                        inputProps={{style: { textAlign: 'right' }}}
+                        label="Nr.lam.3"
+                        margin="dense"
+                        name="NrLam3"
+                        onBlur={this.calculPretCatalog}
+                        onChange={this.onChange}
+                        onKeyDown={this.handlerKeyDown}
+                        required={currentItem.denumireMaterial3?true:false}
+                        value={currentItem.NrLam3 || ''}
+                        variant="outlined"
+                      />
+                    </Grid>
+                  </Grid>   
+
+                  {/** ---------------------- OBSERVATII -------------------------- **/}
+                  <Grid
+                    item
+                    lg={10}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      InputLabelProps={{
+                        shrink:true
+                      }}
+                      inputProps={{style: { textAlign: 'left' }}}
+                     
+                      label="Observatii"
+                      margin="dense"
+                      name="observatii"
+                      onChange={this.onChange}
+                      value={currentItem.observatii || ''}
+                      variant="outlined"
+                    />
+                  </Grid>
+                  
+                  {/** ---------------------- CANTITATE -------------------------- **/}
+                  <Grid
+                    item
+                    lg={2}
                     xs={12}
                   >
                     <TextField
@@ -462,6 +1045,7 @@ class ReperEdit extends React.Component {
                       variant="outlined"
                     />
                   </Grid>
+                  {/** ---------------------- CAMPURI DE TOTAL(GRI) -------------------------- **/}
                   <Grid
                     item
                     lg={12}
@@ -482,7 +1066,6 @@ class ReperEdit extends React.Component {
                       xs={12}
                     >
                       <TextField
-                  
                         fullWidth
                         InputLabelProps={{shrink:true}}
                         inputProps={{style: { textAlign: 'right' }}}

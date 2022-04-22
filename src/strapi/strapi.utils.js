@@ -139,6 +139,20 @@ export const getMaterialeX=(tokenKey='materiale')=>{
     return null;
 }
 
+// setCoduri
+
+export const setCoduri=(value, tokenKey='coduri')=>{
+    if(localStorage){
+        localStorage.setItem(tokenKey, LZString.compress(JSON.stringify(value)));
+    }
+}
+
+export const getCoduriX=(tokenKey='coduri')=>{
+    if(localStorage && localStorage.getItem(tokenKey)){
+        return JSON.parse(LZString.decompress(localStorage.getItem(tokenKey)));
+    }
+    return null;
+}
 
 // setPreturiTabelare
 

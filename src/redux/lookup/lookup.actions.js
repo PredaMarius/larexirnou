@@ -6,6 +6,9 @@ import {
   LOAD_MATERIALE_START,
   LOAD_MATERIALE_SUCCESS,
   LOAD_MATERIALE_FAILURE, 
+  LOAD_CODURI_START,
+  LOAD_CODURI_SUCCESS,
+  LOAD_CODURI_FAILURE, 
   LOAD_PRETURITABELARE_START,
   LOAD_PRETURITABELARE_SUCCESS,
   LOAD_PRETURITABELARE_FAILURE,
@@ -54,7 +57,18 @@ export const loadMaterialeFailure =(error)=> ({
   type:LOAD_MATERIALE_FAILURE,
   payload:error
 });
-
+//--------------------------------- CODURI
+export const loadCoduriStart =()=> ({
+  type:LOAD_CODURI_START,
+});
+export const loadCoduriSuccess =(coduri)=> ({
+  type:LOAD_CODURI_SUCCESS,
+  payload:coduri
+});
+export const loadCoduriFailure =(error)=> ({
+  type:LOAD_CODURI_FAILURE,
+  payload:error
+});
 //--------------------------------- PRETURI TABELARE
 export const loadPreturiTabelareStart =()=> ({
   type:LOAD_PRETURITABELARE_START,

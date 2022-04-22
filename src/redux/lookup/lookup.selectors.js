@@ -13,6 +13,11 @@ export const selectLookupMateriale= createSelector(
   lookup=>lookup.materiale
 );
 
+export const selectLookupCoduri= createSelector(
+  [selectLookup],
+  lookup=>lookup.coduri
+);
+
 export const selectLookupPreturiTabelare= createSelector(
   [selectLookup],
   lookup=>lookup.preturitabelare

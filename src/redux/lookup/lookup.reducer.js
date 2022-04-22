@@ -4,6 +4,8 @@ import {
   LOAD_PRODUSE_FAILURE,
   LOAD_MATERIALE_SUCCESS,
   LOAD_MATERIALE_FAILURE, 
+  LOAD_CODURI_SUCCESS,
+  LOAD_CODURI_FAILURE, 
   LOAD_PRETURITABELARE_SUCCESS,
   LOAD_PRETURITABELARE_FAILURE,
   LOAD_OPTIONALE_SUCCESS,
@@ -23,6 +25,7 @@ import {
 const INITIAL_STATE = {
   produse:[],
   materiale:[],
+  coduri:[],
   preturitabelare:[],
   optionale:[],
   culori:[],
@@ -59,7 +62,19 @@ const lookupReducer=(state = INITIAL_STATE, action)=> {
         ...state, 
         error:action.payload
       } 
-    
+    //-----------------------CASE CODURI
+    case LOAD_CODURI_SUCCESS:
+      return {
+        ...state, 
+        coduri:action.payload,
+        error:null
+      } 
+
+    case LOAD_CODURI_FAILURE:
+      return {
+        ...state, 
+        error:action.payload
+      } 
       //-----------------------CASE PRETURI TABELARE  
     case LOAD_PRETURITABELARE_SUCCESS:
       return {

@@ -141,8 +141,16 @@ const OrderFooter = props => {
                   'deschidere': reper.deschidere,
                   'culoareLamela': reper.culoareLamela,
                   'culoareCaseta': reper.culoareCaseta,
-                  'material': reper.material,
                   'codMaterial': reper.codMaterial,
+                  'material': reper.material,
+                  'idCod':reper.idCod,
+                  'NrLam':reper.NrLam,
+                  'material2': reper.material2,
+                  'idCod2':reper.idCod2,
+                  'NrLam2':reper.NrLam2,
+                  'material3': reper.material3,
+                  'idCod3':reper.idCod3,
+                  'NrLam3':reper.NrLam3,                  
                   'lungimeSnur': reper.lungimeSnur,
                   'actionare': reper.actionare, // camp folosit pentru data creearii necesar la ordonare in Devco
                   'tipActionare': reper.tipActionare,
@@ -153,6 +161,7 @@ const OrderFooter = props => {
                   'optional2': reper.optional2,
                   'optional3': reper.optional3,
                   'console': reper.console,
+                  'TipConsole': reper.TipConsole,
                   'buc': reper.buc,
                   'mp': reper.mp,
                   'pretCatalog': reper.pretCatalog,
@@ -165,10 +174,16 @@ const OrderFooter = props => {
                   'denumireCuloareLamela': reper.denumireCuloareLamela,
                   'denumireCuloareCaseta': reper.denumireCuloareCaseta,
                   'denumireMaterial': reper.denumireMaterial,
+                  'denumireMaterial2': reper.denumireMaterial2,
+                  'denumireMaterial3': reper.denumireMaterial3,
                   'denumireTipActionare': reper.denumireTipActionare,
                   'denumireOptional1': reper.denumireOptional1,
                   'denumireOptional2': reper.denumireOptional2,
-                  'denumireOptional3': reper.denumireOptional3
+                  'denumireOptional3': reper.denumireOptional3,
+                  'denumireCod': reper.denumireCod,
+                  'denumireCod2': reper.denumireCod2,
+                  'denumireCod3': reper.denumireCod3,
+                  'denumireConsole': reper.denumireConsole
                 })
                 .then((response)=>{ 
                   let foundComanda = comenzi.findIndex(com => com.id === response.idComanda.id); 
@@ -256,6 +271,7 @@ const OrderFooter = props => {
   const salvareReperNou=(reper, index)=>{
     return new Promise( (resolve, reject) => {
       setTimeout(async() => {
+        
         await strapi.createEntry('comandarepers',
           {
             'idComanda': updatedOrder.id,
@@ -268,8 +284,16 @@ const OrderFooter = props => {
             'deschidere': reper.deschidere,
             'culoareLamela': reper.culoareLamela,
             'culoareCaseta': reper.culoareCaseta,
-            'material': reper.material,
             'codMaterial': reper.codMaterial,
+            'material': reper.material,
+            'idCod':reper.idCod,
+            'NrLam':reper.NrLam,
+            'material2': reper.material2,
+            'idCod2':reper.idCod2,
+            'NrLam2':reper.NrLam2,
+            'material3': reper.material3,
+            'idCod3':reper.idCod3,
+            'NrLam3':reper.NrLam3,
             'lungimeSnur': reper.lungimeSnur,
             'actionare': reper.actionare,// camp folosit pentru data creearii necesar la ordonare in Devco
             'tipActionare': reper.tipActionare,
@@ -280,6 +304,7 @@ const OrderFooter = props => {
             'optional2': reper.optional2,
             'optional3': reper.optional3,
             'console': reper.console,
+            'TipConsole': reper.TipConsole,
             'buc': reper.buc,
             'mp': reper.mp,
             'pretCatalog': reper.pretCatalog,
@@ -292,10 +317,16 @@ const OrderFooter = props => {
             'denumireCuloareLamela': reper.denumireCuloareLamela,
             'denumireCuloareCaseta': reper.denumireCuloareCaseta,
             'denumireMaterial': reper.denumireMaterial,
+            'denumireMaterial2': reper.denumireMaterial2,
+            'denumireMaterial3': reper.denumireMaterial3,
             'denumireTipActionare': reper.denumireTipActionare,
             'denumireOptional1': reper.denumireOptional1,
             'denumireOptional2': reper.denumireOptional2,
-            'denumireOptional3': reper.denumireOptional3
+            'denumireOptional3': reper.denumireOptional3,
+            'denumireCod': reper.denumireCod,
+            'denumireCod2': reper.denumireCod2,
+            'denumireCod3': reper.denumireCod3,
+            'denumireConsole': reper.denumireConsole,
           }).then(()=>{ 
           resolve('ok')
         }).catch(e=>{
@@ -323,6 +354,7 @@ const OrderFooter = props => {
     if(isEqual(orders[foundComanda].comandarepers[foundReperOrders], updatedOrder.comandarepers[foundReperUpdatedOrder])===false){
       return new Promise((resolve, reject) => {
         setTimeout(async() => {
+          
           await strapi.updateEntry('comandarepers', reper.id,
             {
               'idComanda': updatedOrder.id,
@@ -335,8 +367,16 @@ const OrderFooter = props => {
               'deschidere': reper.deschidere,
               'culoareLamela': reper.culoareLamela,
               'culoareCaseta': reper.culoareCaseta,
-              'material': reper.material,
               'codMaterial': reper.codMaterial,
+              'material': reper.material,
+              'idCod':reper.idCod,
+              'NrLam':reper.NrLam,
+              'material2': reper.material2,
+              'idCod2':reper.idCod2,
+              'NrLam2':reper.NrLam2,
+              'material3': reper.material3,
+              'idCod3':reper.idCod3,
+              'NrLam3':reper.NrLam3,
               'lungimeSnur': reper.lungimeSnur,
               'tipActionare': reper.tipActionare,
               'actionareStDr': reper.actionareStDr,
@@ -346,6 +386,7 @@ const OrderFooter = props => {
               'optional2': reper.optional2,
               'optional3': reper.optional3,
               'console': reper.console,
+              'TipConsole': reper.TipConsole,
               'buc': reper.buc,
               'mp': reper.mp,
               'pretCatalog': reper.pretCatalog,
@@ -358,10 +399,17 @@ const OrderFooter = props => {
               'denumireCuloareLamela': reper.denumireCuloareLamela,
               'denumireCuloareCaseta': reper.denumireCuloareCaseta,
               'denumireMaterial': reper.denumireMaterial,
+              'denumireMaterial2': reper.denumireMaterial2,
+              'denumireMaterial3': reper.denumireMaterial3,
               'denumireTipActionare': reper.denumireTipActionare,
               'denumireOptional1': reper.denumireOptional1,
               'denumireOptional2': reper.denumireOptional2,
               'denumireOptional3': reper.denumireOptional3,
+              'denumireCod': reper.denumireCod,
+              'denumireCod2': reper.denumireCod2,
+              'denumireCod3': reper.denumireCod3,
+              'denumireConsole': reper.denumireConsole,
+
             }).then(()=>{ 
             resolve('ok')
           }).catch(e=>{

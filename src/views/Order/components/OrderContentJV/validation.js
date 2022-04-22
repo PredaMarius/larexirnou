@@ -27,7 +27,7 @@ export const validation=debounce(async (currentItem,errors,setErrors)=>{
     }else{
       mesajeEroare.m4m={}
     }
-    //--------------------------------------------------------------------------------------------
+   
   }
   setErrors({...errors,...mesajeEroare})
   return !JSON.stringify(mesajeEroare).includes('Eroare')

@@ -22,7 +22,7 @@ import { withSnackbar } from 'notistack';
 
 import Notifier from './components/Notifier/Notifier';
 
-import {loadProduseStart,loadMaterialeStart, loadOptionaleStart, loadCuloriStart, loadPreturiTabelareStart, loadInformariStart, loadIndicatoriStart, loadFirmaStart, loadCursStart} from './redux/lookup/lookup.actions';
+import {loadProduseStart,loadMaterialeStart, loadCoduriStart , loadOptionaleStart, loadCuloriStart, loadPreturiTabelareStart, loadInformariStart, loadIndicatoriStart, loadFirmaStart, loadCursStart} from './redux/lookup/lookup.actions';
 import {setCurrentUserSuccess, setDeliveryAddressesStart} from './redux/user/user.actions';
 
 import {strapi} from 'strapi/strapi.config';
@@ -68,7 +68,7 @@ validate.validators = {
 
 class App extends Component {
   componentDidMount(){
-    const {currentUser, setCurrentUserSuccess, loadProduseStart, loadMaterialeStart,loadOptionaleStart, loadCuloriStart, loadPreturiTabelareStart, loadInformariStart, loadIndicatoriStart, loadFirmaStart, loadCursStart }=this.props 
+    const {currentUser, setCurrentUserSuccess, loadProduseStart, loadMaterialeStart, loadCoduriStart,loadOptionaleStart, loadCuloriStart, loadPreturiTabelareStart, loadInformariStart, loadIndicatoriStart, loadFirmaStart, loadCursStart }=this.props 
     
     if(this.verificareLocalStorage()<10){  
       localStorage.removeItem('indicatori');
@@ -82,6 +82,7 @@ class App extends Component {
       loadProduseStart()
       loadMaterialeStart()
       loadOptionaleStart()
+      loadCoduriStart()
       loadCuloriStart()
       loadInformariStart()
       loadPreturiTabelareStart()
@@ -161,6 +162,7 @@ const mapDispatchToProps=dispatch=>({
   setCurrentUserSuccess:user=>dispatch(setCurrentUserSuccess(user)),
   loadProduseStart:()=>dispatch(loadProduseStart()),
   loadMaterialeStart:()=>dispatch(loadMaterialeStart()),
+  loadCoduriStart:()=>dispatch(loadCoduriStart()),
   loadOptionaleStart:()=>dispatch(loadOptionaleStart()),
   loadCuloriStart:()=>dispatch(loadCuloriStart()),
   loadPreturiTabelareStart:()=>dispatch(loadPreturiTabelareStart()),
